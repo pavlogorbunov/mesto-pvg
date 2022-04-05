@@ -7,5 +7,5 @@
 При выполнении проекта были использованы следующие технологии:
 <ul><li>flexbox</li><li>Grid layout</li><li>Адаптивная вёрстка</li><li>Методология БЭМ</li><li>Файловая структура Nested</li><li>JavaScript DOM</li></ul>
 <h2>Использование</h2>
-Для просмотра материала откройте в браузере файл index.html или <a href="" target="_blank">тык сюда.</a>
+Для просмотра материала откройте в браузере файл index.html или <a href="https://pavlogorbunov.github.io/mesto-pvg/" target="_blank">тык сюда.</a>
 
