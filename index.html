@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto</title>
+</head>
+<body class="page">
+    <section class="popup">
+        <form action="" class="popup__form">
+            <p class="popup__form-title">Редактировать профиль</p>
+            <input type="text" name="name" value="" class="popup__form-input">
+            <input type="text" name="occupation" value="" class="popup__form-input">
+            <input type="submit" class="popup__form-save" value="Сохранить">
+            <div class="popup__form-escape"></div>
+        </form>
+    </section>
+    <header class="header">
+        <div class="header__logo"></div>
+        <div class="header__line"></div>
+    </header>
+    <main>
+        <section class="profile">
+            <div class="profile__avatar">
+            </div>
+            <div class="profile__info">
+                <div class="profile__info-name-container"><h1 class="profile__info-name">Жак-Ив Кусто</h1><div class="profile__info-editbutton"></div></div>
+                <p class="profile__info-titles">Исследователь океана, ученый</p>
+            </div>
+            <div class="profile__info-addbutton"></div>
+        </section>
+        <section class="cards">
+            <div class="cards__card"><img src="./images/1.jpg" alt="" class="cards__card-img"><h2 class="cards__card-title">Карачаевск<div class="cards__card-likebtn"></div></h2></div>
+            <div class="cards__card"><img src="./images/2.jpg" alt="" class="cards__card-img"><h2 class="cards__card-title">Гора Эльбрус<div class="cards__card-likebtn"></div></h2></div>
+            <div class="cards__card"><img src="./images/3.jpg" alt="" class="cards__card-img"><h2 class="cards__card-title">Домбай<div class="cards__card-likebtn"></div></h2></div>
+            <div class="cards__card"><img src="./images/1.jpg" alt="" class="cards__card-img"><h2 class="cards__card-title">Карачаево-Черкессия<div class="cards__card-likebtn"></div></h2></div>
+            <div class="cards__card"><img src="./images/2.jpg" alt="" class="cards__card-img"><h2 class="cards__card-title">Гора Эльбрус<div class="cards__card-likebtn"></div></h2></div>
+            <div class="cards__card"><img src="./images/3.jpg" alt="" class="cards__card-img"><h2 class="cards__card-title">Домбай<div class="cards__card-likebtn"></div></h2></div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p class="footer__copyright">&copy 2020 Mesto Russia</p>
+    </footer>
+    <script src="./script/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+.popup__form-save {
+    padding: 14px;
+    margin-top: 18px;
+    border-radius: 2px;
+    background-color: #000;
+    color: #fff;
+    border: 0px;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    transition: 0.3s;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.popup__form-save:hover {
+    background-color: #00000090;
+    transition: 0.3s;
+}
+
+@media screen and (max-width: 800px) {
+    .popup__form-save {
+        font-size: 14px;
+    }
+}

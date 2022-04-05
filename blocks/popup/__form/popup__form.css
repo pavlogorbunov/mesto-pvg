@@ -1,0 +1,19 @@
+.popup__form {
+    padding-top: 34px;
+    padding-left: 36px;
+    padding-right: 36px;
+    padding-bottom: 37px;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 430px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+    position: relative;
+}
+
+@media screen and (max-width: 800px) {
+    .popup__form {
+        width: calc(100% - 38px);
+    }
+}

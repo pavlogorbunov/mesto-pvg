@@ -1,0 +1,27 @@
+.popup__form-escape {
+    width: 32px;
+    height: 32px;
+    background-image: url(../../../images/escape.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: absolute;
+    top: -42px;
+    right: -44px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.popup__form-escape:hover {
+    opacity: 70%;
+    transition: 0.3s;
+}
+
+@media screen and (max-width: 800px) {
+    .popup__form-escape {
+        width: 20px;
+        height: 20px;
+        right: 0;
+        top: -35px;
+    }
+}

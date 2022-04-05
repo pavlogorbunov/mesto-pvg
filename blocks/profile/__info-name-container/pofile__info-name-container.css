@@ -1,0 +1,9 @@
+.profile__info-name-container {
+    position: relative;
+}
+
+@media screen and (max-width: 800px) {
+    .profile__info-name-container {
+        width: 100%;
+    }
+}

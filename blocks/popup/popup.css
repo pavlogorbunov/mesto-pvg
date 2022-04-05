@@ -1,0 +1,11 @@
+.popup {
+    z-index: 1;
+    position: fixed;
+    background-color: #00000050;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    display: none; /*flex*/
+    align-items: center;
+    justify-content: center;
+}
