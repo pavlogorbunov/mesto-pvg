@@ -30,4 +30,9 @@
     .profile__info-addbutton {
         width: 100%;
     }
+
+    .profile__info-addbutton:hover {
+        opacity: 100%;
+    }
+
 }
