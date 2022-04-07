@@ -39,3 +39,4 @@ form.addEventListener('click', event => event.stopPropagation());
 form.addEventListener('submit', renameProfile);
 //saveButton.addEventListener('click', renameProfile);
 likeButtons.forEach(el => el.addEventListener('click',  like));
+window.addEventListener('keydown', event => console.log(event.code));

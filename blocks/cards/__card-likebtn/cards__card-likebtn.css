@@ -8,8 +8,10 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
+    background-color: #fff;
     cursor: pointer;
     transition: 0.3s;
+    border: 0;
 }
 
 .cards__card-likebtn:hover {
