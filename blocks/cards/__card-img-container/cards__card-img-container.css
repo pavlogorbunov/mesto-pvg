@@ -1,0 +1,6 @@
+.cards__card-img-container {
+    width: 100%;
+    margin: 0;
+    padding-top: 100%;
+    position: relative;
+}
