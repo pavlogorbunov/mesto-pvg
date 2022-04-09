@@ -4,14 +4,20 @@ const editButton = document.querySelector('.profile__info-editbutton');
 const addItemBtn = document.querySelector('.profile__info-addbutton');
 const escapeRenameButton = document.querySelectorAll('.popup__form-escape')[0];
 const escapeAddItemButton = document.querySelectorAll('.popup__form-escape')[1];
-const saveButton = document.querySelector('.popup__form-save');
 const likeButtons = document.querySelectorAll('.cards__card-likebtn');
 const renameForm = document.querySelectorAll('.popup__form')[0];
 const addItemForm = document.querySelectorAll('.popup__form')[1];
 
-const inputs = popupRename.querySelectorAll('.popup__form-input');
+const cards = document.querySelector('.cards');
+
+const inputs = document.querySelectorAll('.popup__form-input');
 let inputProfileName = inputs[0];
 let inputProfileOccupation = inputs[1];
+let inputAddItemName = inputs[2];
+let inputAddItemSrc = inputs[3];
+
+inputAddItemName.addEventListener('click',  () => {inputAddItemName.value=''});
+inputAddItemSrc.addEventListener('click',  () => {inputAddItemSrc.value=''});
 
 function showOrHidePopupRename() {
     popupRename.classList.toggle('popup_visible');
@@ -38,6 +44,9 @@ function renameProfile(evt) {
 
 function addCard(evt) {
     evt.preventDefault();
+    const item = `<div class="cards__card"><div class="cards__card-img-container"><img src="${inputAddItemSrc.value}" alt="" class="cards__card-img"><div class="crads__card-trash"></div></div><div class="cards__card-title">${inputAddItemName.value}<button class="cards__card-likebtn"></button></div></div>`;
+    cards.insertAdjacentHTML("afterbegin", item);
+    cards.querySelector('.cards__card-likebtn').addEventListener('click',  like);
     showOrHidePopupAddItem();
 }
 
@@ -55,6 +64,5 @@ popupAddItem.addEventListener('click', showOrHidePopupAddItem);
 addItemForm.addEventListener('click', event => event.stopPropagation());
 addItemForm.addEventListener('submit', addCard);
 addItemBtn.addEventListener('click', showOrHidePopupAddItem);
-//saveButton.addEventListener('click', renameProfile);
 likeButtons.forEach(el => el.addEventListener('click',  like));
 //window.addEventListener('keydown', event => console.log(event.code));
