@@ -31,8 +31,6 @@ const editButton = document.querySelector('.profile__info-editbutton');
 const addItemBtn = document.querySelector('.profile__info-addbutton');
 const escapeRenameButton = document.querySelectorAll('.popup__form-escape')[0];
 const escapeAddItemButton = document.querySelectorAll('.popup__form-escape')[1];
-const likeButtons = document.querySelectorAll('.cards__card-likebtn');
-const deleteButtons = document.querySelectorAll('.crads__card-trash');
 const renameForm = document.querySelectorAll('.popup__form')[0];
 const addItemForm = document.querySelectorAll('.popup__form')[1];
 
@@ -44,14 +42,13 @@ let inputProfileOccupation = inputs[1];
 let inputAddItemName = inputs[2];
 let inputAddItemSrc = inputs[3];
 
-inputAddItemName.addEventListener('click',  () => {inputAddItemName.value=''});
-inputAddItemSrc.addEventListener('click',  () => {inputAddItemSrc.value=''});
-
 function unboxCards(e) {
     e.forEach(card => cards.insertAdjacentHTML('afterbegin', `<div class="cards__card"><div class="cards__card-img-container"><img src="${card.link}" alt="" class="cards__card-img"><div class="crads__card-trash"></div></div><div class="cards__card-title">${card.name}<button class="cards__card-likebtn"></button></div></div>`));
 }
 
 unboxCards(cardsBox);
+const deleteButtons = document.querySelectorAll('.crads__card-trash');
+const likeButtons = document.querySelectorAll('.cards__card-likebtn');
 
 function showOrHidePopupRename() {
     popupRename.classList.toggle('popup_visible');
