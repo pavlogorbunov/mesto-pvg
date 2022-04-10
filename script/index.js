@@ -1,29 +1,4 @@
-const cardsBox = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
+const cardsBox = [{name: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'},{name: 'Челябинская область', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'}, {name: 'Иваново', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'}, {name: 'Камчатка', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'}, {name: 'Холмогорский район', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'}, {name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'}];
 
 const popupRename = document.querySelectorAll('.popup')[0];
 const popupAddItem = document.querySelectorAll('.popup')[1];
@@ -50,16 +25,20 @@ unboxCards(cardsBox);
 const deleteButtons = document.querySelectorAll('.crads__card-trash');
 const likeButtons = document.querySelectorAll('.cards__card-likebtn');
 
-function showOrHidePopupRename() {
-    popupRename.classList.toggle('popup_visible');
-}
-
-function showOrHidePopupAddItem() {
-    popupAddItem.classList.toggle('popup_visible');
-}
-
 function showOrHide(e) {
-    e.classList.toggle('popup_visible');
+  if(e.classList.contains('popup_visible')) {
+    e.classList.remove('fadein');
+    e.classList.add('fadeout');
+    function removec (a) {
+      console.log('removec');
+      a.classList.remove('popup_visible')
+      a.classList.remove('fadeout');
+    }
+    setTimeout(() => removec(e), 1000);
+    console.log(e);
+  } else {
+    e.classList.add('fadein', 'popup_visible');
+  }
 }
 
 function openRenameForm() {
@@ -83,6 +62,8 @@ function addCard(evt) {
     cards.insertAdjacentHTML("afterbegin", item);
     cards.querySelector('.cards__card-likebtn').addEventListener('click',  like);
     cards.querySelector('.crads__card-trash').addEventListener('click',  deleteItem);
+    inputAddItemSrc.value = '';
+    inputAddItemName.value = '';
     showOrHide(popupAddItem);
 }
 
@@ -95,17 +76,16 @@ function deleteItem(event) {
 }
 
 editButton.addEventListener('click', openRenameForm);
-escapeRenameButton.addEventListener('click', showOrHidePopupRename);
-popupRename.addEventListener('click', showOrHidePopupRename);
+escapeRenameButton.addEventListener('click', () => showOrHide(popupRename));
+popupRename.addEventListener('click', () => showOrHide(popupRename));
 renameForm.addEventListener('click', event => event.stopPropagation());
 renameForm.addEventListener('submit', renameProfile);
 
-addItemBtn.addEventListener('click', showOrHidePopupAddItem);
-escapeAddItemButton.addEventListener('click', showOrHidePopupAddItem);
-popupAddItem.addEventListener('click', showOrHidePopupAddItem);
+addItemBtn.addEventListener('click', () => showOrHide(popupAddItem));
+escapeAddItemButton.addEventListener('click', () => showOrHide(popupAddItem));
+popupAddItem.addEventListener('click', () => showOrHide(popupAddItem));
 addItemForm.addEventListener('click', event => event.stopPropagation());
 addItemForm.addEventListener('submit', addCard);
 
 likeButtons.forEach(el => el.addEventListener('click',  like));
 deleteButtons.forEach(el => el.addEventListener('click',  deleteItem));
-//window.addEventListener('keydown', event => console.log(event.code));
