@@ -1,7 +1,8 @@
-.cards__card-img {
+.card__img {
     width: 100%;
     margin: 0;
     padding: 0;
     object-fit: contain;
     object-position: center;
+    grid-area: img;
 }

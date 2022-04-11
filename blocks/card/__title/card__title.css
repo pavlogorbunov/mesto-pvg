@@ -1,14 +1,14 @@
-.cards__card-title {
+.card__title {
     width: 100%;
     background-color: #fff;
     color: #000;
     padding-top: 25px;
     padding-left: 21px;
     padding-bottom: 31px;
-    padding-right: 55px;
+    padding-right: 0;
     margin: 0;
-    position: relative;
     box-sizing: border-box;
+    grid-area: title;
 
     font-weight: 900;
     font-size: 24px;

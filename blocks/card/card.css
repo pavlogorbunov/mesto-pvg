@@ -1,0 +1,10 @@
+.card {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: auto 66px;
+    grid-template-areas: "img img"
+                         "title like";
+}

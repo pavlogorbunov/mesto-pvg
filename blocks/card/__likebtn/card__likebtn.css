@@ -1,9 +1,7 @@
-.cards__card-likebtn {
+.card__likebtn {
     width: 22px;
     height: 19px;
-    position: absolute;
-    right: 19px;
-    top: 30px;
+    margin: auto;
     background-image: url("../../../images/like.svg");
     background-position: center;
     background-repeat: no-repeat;
@@ -12,19 +10,20 @@
     cursor: pointer;
     transition: 0.3s;
     border: 0;
+    grid-area: like;
 }
 
-.cards__card-likebtn:hover {
+.card__likebtn:hover {
     opacity: 60%;
     transition: 0.3s;
 }
 
-.cards__card-likebtn:active {
+.card__likebtn:active {
     background-color: #fff;
 }
 
 @media screen and (max-width: 850px) {
-    .cards__card-likebtn:hover {
+    .card__likebtn:hover {
         opacity: 100%;
     }
 }

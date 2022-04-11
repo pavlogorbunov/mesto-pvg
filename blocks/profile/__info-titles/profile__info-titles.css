@@ -5,10 +5,14 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 800px) {
     .profile__info-titles {
+        width: 100%;
         font-size: 14px;
         margin-bottom: 36px;
     }

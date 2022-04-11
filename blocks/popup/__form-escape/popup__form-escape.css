@@ -5,11 +5,13 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+    background-color: #000;
     position: absolute;
     top: -42px;
     right: -44px;
     transition: 0.3s;
     cursor: pointer;
+    border: 0;
 }
 
 .popup__form-escape:hover {
