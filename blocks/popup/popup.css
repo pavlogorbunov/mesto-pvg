@@ -9,4 +9,7 @@
     display: none; /*flex*/
     align-items: center;
     justify-content: center;
+    padding-left: 19px;
+    padding-right: 19px;
+    box-sizing: border-box;
 }

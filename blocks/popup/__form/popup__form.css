@@ -6,6 +6,6 @@
 
 @media screen and (max-width: 800px) {
     .popup__form {
-        width: calc(100% - 38px);
+
     }
 }

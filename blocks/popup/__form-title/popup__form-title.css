@@ -11,5 +11,7 @@
 @media screen and (max-width: 800px) {
     .popup__form-title {
         font-size: 18px;
+        padding-top: 3px;
+        padding-bottom: 77px;
     }
 }

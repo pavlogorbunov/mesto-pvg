@@ -22,5 +22,7 @@
 @media screen and (max-width: 800px) {
     .popup__form-save {
         font-size: 14px;
+        margin-top: 15px;
+        padding: 15px;
     }
 }

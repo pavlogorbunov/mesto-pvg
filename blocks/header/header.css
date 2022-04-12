@@ -1,16 +1,17 @@
 .header {
-    padding-top: 45px;
-    padding-bottom: 41px;
-    border-bottom: 1px solid #545454;
-    position: relative;
+    padding-left: 19px;
+    padding-right: 19px;
     box-sizing: border-box;
+    background-color: #000;
+    position: relative;
+    max-width: 918px;
+    margin: auto;
 }
 
 @media screen and (max-width: 800px) {
     .header {
-        width: 100vw;
-        left: -19px;
-        padding-bottom: 31px;
-        padding-top: 28px;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
     }
 }

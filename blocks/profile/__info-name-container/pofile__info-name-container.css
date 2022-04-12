@@ -6,6 +6,7 @@
 @media screen and (max-width: 800px) {
     .profile__info-name-container {
         width: 100%;
-        padding-left: 17px;
+        padding-top: 3px;
+        padding-left: 11px;
     }
 }
