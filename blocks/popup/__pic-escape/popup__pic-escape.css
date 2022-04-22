@@ -1,0 +1,31 @@
+.popup__pic-escape {
+    width: 32px;
+    height: 32px;
+    background-image: url(../../../images/escape.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px 32px;
+    background-color: transparent;
+    position: absolute;
+    top: -42px;
+    right: -44px;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+}
+
+.popup__pic-escape:hover {
+    opacity: 70%;
+    transition: 0.3s;
+}
+
+@media screen and (max-width: 800px) {
+    .popup__pic-escape {
+        width: 20px;
+        height: 20px;
+        background-size: 20px 20px;
+        right: 0;
+        top: -35px;
+    }
+}
