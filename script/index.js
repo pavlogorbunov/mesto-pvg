@@ -7,67 +7,62 @@ const cardsBox = [
     {name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'}];
 
 const editOpenButton = document.querySelector('.profile__info-editbutton');
-const inputProfileName = document.querySelector('.popup__form-input_name_name');
-const inputProfileOccupation = document.querySelector('.popup__form-input_name_occupation');
-const editForm = inputProfileName.parentNode;
-const editPopupContainer = editForm.parentNode;
-const editPopup = editPopupContainer.parentNode;
-const editEscapeButton = editPopupContainer.querySelector('.popup__form-escape');
+const editPopup = document.querySelector('.popup_type_profile');
+const editPopupContainer = editPopup.querySelector('.popup__container');
+const editForm = editPopup.querySelector('.popup__form');
+const inputProfileOccupation = editPopup.querySelector('.popup__form-input_name_occupation');
+const inputProfileName = editPopup.querySelector('.popup__form-input_name_name');
 
 const addOpenButton = document.querySelector('.profile__info-addbutton');
-const inputPlaceName = document.querySelector('.popup__form-input_name_place');
-const inputPlaceLink = document.querySelector('.popup__form-input_name_link');
-const addForm = inputPlaceName.parentNode;
-const addPopupContainer = addForm.parentNode;
-const addPopup = addPopupContainer.parentNode;
-const addEscapeButton = addPopupContainer.querySelector('.popup__form-escape');
+const addPopup = document.querySelector('.popup_type_card');
+const addPopupContainer = addPopup.querySelector('.popup__container');
+const addForm = addPopup.querySelector('.popup__form');
+const inputPlaceName = addPopup.querySelector('.popup__form-input_name_place');
+const inputPlaceLink = addPopup.querySelector('.popup__form-input_name_link');
 
-const picPopupContainer = document.querySelector('.popup__pic-container');
-const picPopup = picPopupContainer.parentNode;
+const picPopup = document.querySelector('.popup_type_image');
+const picPopupContainer = picPopup.querySelector('.popup__pic-container');
 const picPopupImg = picPopup.querySelector('.popup__pic-img');
 const picPopupTitle = picPopup.querySelector('.popup__pic-title');
-const picPopupEscapeBtn = picPopup.querySelector('.popup__pic-escape');
+
+const currentProfileName = document.querySelector('.profile__info-name');
+const currentProfileOccupation = document.querySelector('.profile__info-titles');
 
 const cardsBlock = document.querySelector('.cards');
 const images = document.querySelectorAll('.card__img');
 
-const likeButtons = document.querySelectorAll('.card__likebtn');
-const deleteButtons = document.querySelectorAll('.card__trash');
+const closeButtons = document.querySelectorAll('.popup__close');
 
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
-const showOrHidePopup = e => {
-    if(e.classList.contains('popup_visible')) {
-      e.classList.add('fadeout');
-      setTimeout(() => e.classList.remove('popup_visible', 'fadeout'), 400);
-    } else {
-      e.classList.add('fadein', 'popup_visible');
-      setTimeout(() => e.classList.remove('fadein'), 400);
-    }
-  }
+const showPopup = e => {
+    e.classList.add('popup_visible');
+}
+
+const hidePopup = e => {
+    e.classList.remove('popup_visible');
+}
 
 const openEditForm = () => {
-    const currentProfileName = document.querySelector('.profile__info-name').textContent;
-    const currentProfileOccupation = document.querySelector('.profile__info-titles').textContent;
-    inputProfileName.value = currentProfileName;
-    inputProfileOccupation.value = currentProfileOccupation;
-    showOrHidePopup(editPopup);
+    inputProfileName.value = currentProfileName.textContent;
+    inputProfileOccupation.value = currentProfileOccupation.textContent;
+    showPopup(editPopup);
 }
 
 const renameProfile = evt => {
     evt.preventDefault();
-    document.querySelector('.profile__info-name').textContent = inputProfileName.value;
-    document.querySelector('.profile__info-titles').textContent = inputProfileOccupation.value;
-    showOrHidePopup(editPopup);
+    currentProfileName.textContent = inputProfileName.value;
+    currentProfileOccupation.textContent = inputProfileOccupation.value;
+    hidePopup(editPopup);
 }
 
 const like = evt => evt.currentTarget.classList.toggle('cards__card-likebtn_activated');
 
-const addFormHandler = evt => {
+const handleAddFormSubmit = evt => {
     evt.preventDefault();
     renderCard({name: inputPlaceName.value, link: inputPlaceLink.value});
     inputPlaceName.value = inputPlaceLink.value = '';
-    showOrHidePopup(addPopup);
+    hidePopup(addPopup);
 }
 
 const generateCard = cardData => {
@@ -79,6 +74,7 @@ const generateCard = cardData => {
     const newCardImage = newCard.querySelector('.card__img');
     newCardImage.src = cardData.link;
     newCardImage.alt = cardData.name;
+    newCardImage.addEventListener('click', () => openImage(cardData));
 
     const newCardLikeBtn = newCard.querySelector('.card__likebtn');
     newCardLikeBtn.addEventListener('click', like);
@@ -86,40 +82,36 @@ const generateCard = cardData => {
     const newCardDeleteBtn = newCard.querySelector('.card__trash');
     newCardDeleteBtn.addEventListener('click', deleteCard);
 
-    const newCardImg = newCard.querySelector('.card__img');
-    newCardImg.addEventListener('click', openImage);
-
     return newCard;
 }
 
-const renderCard = item => cardsBlock.prepend(generateCard(item));
+const renderCard = e => cardsBlock.prepend(generateCard(e));
 
 const deleteCard = evt => evt.target.closest('.card').remove();
 
-const openImage = evt => {
-    picPopupImg.src = evt.currentTarget.src;
-    picPopupTitle.textContent = evt.currentTarget.parentNode.parentNode.querySelector('.card__title').textContent;
-    showOrHidePopup(picPopup);
+const openImage = cardData => {
+    picPopupImg.src = cardData.link;
+    picPopupImg.alt = cardData.name;
+    picPopupTitle.textContent = cardData.name;
+    showPopup(picPopup);
 }
 
 cardsBox.forEach(e => renderCard(e));
 
+closeButtons.forEach((button) => {
+    const popup = button.closest('.popup');
+    button.addEventListener('click', () => hidePopup(popup));
+});
+
 editOpenButton.addEventListener('click', openEditForm);
-editEscapeButton.addEventListener('click', () => showOrHidePopup(editPopup));
-editPopup.addEventListener('click', () => showOrHidePopup(editPopup));
+editPopup.addEventListener('click', () => hidePopup(editPopup));
 editPopupContainer.addEventListener('click', e => e.stopPropagation());
 editForm.addEventListener('submit', renameProfile);
 
-addOpenButton.addEventListener('click', () => showOrHidePopup(addPopup));
-addEscapeButton.addEventListener('click', () => showOrHidePopup(addPopup));
-addPopup.addEventListener('click', () => showOrHidePopup(addPopup));
+addOpenButton.addEventListener('click', () => showPopup(addPopup));
+addPopup.addEventListener('click', () => hidePopup(addPopup));
 addPopupContainer.addEventListener('click', e => e.stopPropagation());
-addForm.addEventListener('submit', addFormHandler);
+addForm.addEventListener('submit', handleAddFormSubmit);
 
-images.forEach(el => el.addEventListener('click',  openImage));
-picPopupEscapeBtn.addEventListener('click', () => showOrHidePopup(picPopup));
-picPopup.addEventListener('click', () => showOrHidePopup(picPopup));
+picPopup.addEventListener('click', () => hidePopup(picPopup));
 picPopupContainer.addEventListener('click', e => e.stopPropagation());
-
-likeButtons.forEach(el => el.addEventListener('click',  like));
-deleteButtons.forEach(el => el.addEventListener('click',  deleteCard));

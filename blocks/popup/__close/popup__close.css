@@ -1,4 +1,4 @@
-.popup__pic-escape {
+.popup__close {
     width: 32px;
     height: 32px;
     background-image: url(../../../images/escape.svg);
@@ -15,13 +15,13 @@
     padding: 0;
 }
 
-.popup__pic-escape:hover {
+.popup__close:hover {
     opacity: 70%;
     transition: 0.3s;
 }
 
 @media screen and (max-width: 800px) {
-    .popup__pic-escape {
+    .popup__close {
         width: 20px;
         height: 20px;
         background-size: 20px 20px;

@@ -7,10 +7,10 @@
     <title>Место</title>
 </head>
 <body class="body">
-    <div class="popup">
+    <div class="popup popup_type_profile">
         <div class="popup__container">
             <h3 class="popup__form-title">Редактировать профиль</h3>
-            <button class="popup__form-escape" type="button" aria-label="Выход"></button>
+            <button class="popup__close" type="button" aria-label="Выход"></button>
             <form action="none" name="renameProfile" class="popup__form">            
                 <input type="text" name="name" value="" class="popup__form-input popup__form-input_name_name">
                 <input type="text" name="occupation" value="" class="popup__form-input popup__form-input_name_occupation">
@@ -18,10 +18,10 @@
             </form>
         </div>
     </div>
-    <div class="popup">
+    <div class="popup popup_type_card">
         <div class="popup__container">
             <h3 class="popup__form-title">Новое место</h3>
-            <button class="popup__form-escape" type="button" aria-label="Выход"></button>
+            <button class="popup__close" type="button" aria-label="Выход"></button>
             <form action="none" name="addPlace" class="popup__form">            
                 <input type="text" name="place" placeholder="Название места" value="" class="popup__form-input popup__form-input_name_place">
                 <input type="text" name="link" placeholder="Ссылка на изображение" value="" class="popup__form-input popup__form-input_name_link">
@@ -29,9 +29,9 @@
             </form>
         </div>
     </div>
-    <div class="popup popup_pic">
+    <div class="popup popup_type_image">
         <div class="popup__pic-container">
-            <button class="popup__pic-escape" type="button" aria-label="Выход"></button>
+            <button class="popup__close" type="button" aria-label="Выход"></button>
             <img src="#" alt="" class="popup__pic-img">
             <p class="popup__pic-title"></p>
         </div>
@@ -39,7 +39,7 @@
     <header class="header">
         <a href="index.html" class="header__logo"></a>
     </header>
-    <main  class="page">
+    <main class="page">
         <section class="profile">
             <div class="profile__avatar" style="background-image: url('./images/avatar.jpg')">
             </div>
