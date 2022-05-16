@@ -11,10 +11,16 @@
         <div class="popup__container">
             <h3 class="popup__form-title">Редактировать профиль</h3>
             <button class="popup__close" type="button" aria-label="Выход"></button>
-            <form action="none" name="renameProfile" class="popup__form">            
-                <input type="text" name="name" value="" class="popup__form-input popup__form-input_name_name">
-                <input type="text" name="occupation" value="" class="popup__form-input popup__form-input_name_occupation">
-                <input type="submit" class="popup__form-save" value="Сохранить">           
+            <form action="none" name="renameProfile" class="popup__form">
+                <label class="popup__form-label">           
+                    <input type="text" name="name" id="name" required class="popup__form-input popup__form-input_name_name" minlength="2" maxlength="40">
+                    <span class="popup__form-error" id="name-error">Текст ошибки</span>
+                </label>
+                <label class="popup__form-label">
+                    <input type="text" name="occupation" id="occupation" required class="popup__form-input popup__form-input_name_occupation" minlength="2" maxlength="200">
+                    <span class="popup__form-error" id="occupation-error">Текст ошибки</span>
+                </label>
+                <button type="submit" class="popup__form-save" aria-label="Сохранить">Сохранить</button>
             </form>
         </div>
     </div>
@@ -22,10 +28,16 @@
         <div class="popup__container">
             <h3 class="popup__form-title">Новое место</h3>
             <button class="popup__close" type="button" aria-label="Выход"></button>
-            <form action="none" name="addPlace" class="popup__form">            
-                <input type="text" name="place" placeholder="Название места" value="" class="popup__form-input popup__form-input_name_place">
-                <input type="text" name="link" placeholder="Ссылка на изображение" value="" class="popup__form-input popup__form-input_name_link">
-                <input type="submit" class="popup__form-save" value="Сохранить">           
+            <form action="none" name="addPlace" class="popup__form">
+                <label class="popup__form-label">
+                    <input type="text" name="place" id="place" required placeholder="Название места" value="" class="popup__form-input popup__form-input_name_place" minlength="2" maxlength="30">
+                    <span class="popup__form-error" id="place-error">Текст ошибки</span>
+                </label>
+                <label class="popup__form-label">
+                    <input type="url" name="link" id="link" required placeholder="Ссылка на изображение" value="" class="popup__form-input popup__form-input_name_link">
+                    <span class="popup__form-error" id="link-error">Текст ошибки</span>
+                </label>
+                <button type="submit" class="popup__form-save" aria-label="Сохранить">Сохранить</button>
             </form>
         </div>
     </div>
@@ -69,5 +81,6 @@
         </article>
     </template>
     <script src="./script/index.js"></script>
+    <script src="./script/validate.js"></script>
 </body>
 </html>

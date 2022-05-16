@@ -8,8 +8,9 @@
     line-height: 1;
     padding: 0;
     padding-bottom: 6px;
-    margin-bottom: 33px;
+    margin-bottom: 5px;
     min-width: none;
+    width: 100%;
 }
 
 .popup__form-input:focus {

@@ -29,18 +29,26 @@ const currentProfileName = document.querySelector('.profile__info-name');
 const currentProfileOccupation = document.querySelector('.profile__info-titles');
 
 const cardsBlock = document.querySelector('.cards');
-const images = document.querySelectorAll('.card__img');
 
 const closeButtons = document.querySelectorAll('.popup__close');
 
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
+const handleKeyDown = evt => {
+    if(evt.key === "Escape") {
+        const pop = document.querySelector('.popup_visible');
+        hidePopup(pop);
+    }
+}
+
 const showPopup = e => {
     e.classList.add('popup_visible');
+    document.addEventListener('keydown', handleKeyDown);
 }
 
 const hidePopup = e => {
     e.classList.remove('popup_visible');
+    document.removeEventListener('keydown', handleKeyDown);
 }
 
 const openEditForm = () => {

@@ -27,10 +27,15 @@
 @import url("../blocks/popup/__container/popup__container.css");
 @import url("../blocks/popup/__form/popup__form.css");
 @import url("../blocks/popup/__form-title/popup__form-title.css");
+@import url("../blocks/popup/__form-label/popup__form-label.css");
 @import url("../blocks/popup/__form-input/popup__form-input.css");
 @import url("../blocks/popup/__form-input/_name/popup__form-input_name_name.css");
 @import url("../blocks/popup/__form-input/_name/popup__form-input_name_occupation.css");
+@import url("../blocks/popup/__form-input/_type/popup__form-input_type_error.css");
+@import url("../blocks/popup/__form-error/popup__form-error.css");
+@import url("../blocks/popup/__form-error/_visible/popup__form-error_visible.css");
 @import url("../blocks/popup/__form-save/popup__form-save.css");
+@import url("../blocks/popup/__form-save/_disabled/popup__form-save_disabled.css");
 @import url("../blocks/popup/__pic-container/popup__pic-container.css");
 @import url("../blocks/popup/__pic-title/popup__pic-title.css");
 @import url("../blocks/popup/__pic-img/popup__pic-img.css");
