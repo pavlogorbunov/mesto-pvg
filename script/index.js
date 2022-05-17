@@ -41,13 +41,13 @@ const handleKeyDown = evt => {
     }
 }
 
-const showPopup = e => {
-    e.classList.add('popup_visible');
+const showPopup = popupElement => {
+    popupElement.classList.add('popup_visible');
     document.addEventListener('keydown', handleKeyDown);
 }
 
-const hidePopup = e => {
-    e.classList.remove('popup_visible');
+const hidePopup = popupElement => {
+    popupElement.classList.remove('popup_visible');
     document.removeEventListener('keydown', handleKeyDown);
 }
 
@@ -93,7 +93,7 @@ const generateCard = cardData => {
     return newCard;
 }
 
-const renderCard = e => cardsBlock.prepend(generateCard(e));
+const renderCard = cardData => cardsBlock.prepend(generateCard(cardData));
 
 const deleteCard = evt => evt.target.closest('.card').remove();
 
@@ -104,7 +104,7 @@ const openImage = cardData => {
     showPopup(picPopup);
 }
 
-cardsBox.forEach(e => renderCard(e));
+cardsBox.forEach(cardData => renderCard(cardData));
 
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
