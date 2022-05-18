@@ -32,8 +32,6 @@ const currentProfileOccupation = document.querySelector('.profile__info-titles')
 
 const cardsBlock = document.querySelector('.cards');
 
-const closeButtons = document.querySelectorAll('.popup__close');
-
 const cardTemplate = document.querySelector('#card-template').content.querySelector('.card');
 
 const handleKeyDown = evt => {
@@ -110,11 +108,6 @@ const openImage = cardData => {
 }
 
 cardsBox.forEach(cardData => renderCard(cardData));
-
-closeButtons.forEach((button) => {
-    const popup = button.closest('.popup');
-    button.addEventListener('click', () => hidePopup(popup));
-});
 
 editOpenButton.addEventListener('click', openEditForm);
 editForm.addEventListener('submit', renameProfile);
