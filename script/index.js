@@ -6,6 +6,8 @@ const cardsBox = [
     {name: 'Холмогорский район', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'},
     {name: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'}];
 
+const popups = document.querySelectorAll('.popup');
+    
 const editOpenButton = document.querySelector('.profile__info-editbutton');
 const editPopup = document.querySelector('.popup_type_profile');
 const editPopupContainer = editPopup.querySelector('.popup__container');
@@ -69,8 +71,11 @@ const like = evt => evt.currentTarget.classList.toggle('cards__card-likebtn_acti
 const handleAddFormSubmit = evt => {
     evt.preventDefault();
     renderCard({name: inputPlaceName.value, link: inputPlaceLink.value});
-    inputPlaceName.value = inputPlaceLink.value = '';
+    evt.target.reset();
     hidePopup(addPopup);
+    const buttonElement = addPopup.querySelector('.popup__form-save');
+    buttonElement.classList.add('popup__form-save_disabled');
+    buttonElement.setAttribute('disabled', true);
 }
 
 const generateCard = cardData => {
@@ -112,14 +117,16 @@ closeButtons.forEach((button) => {
 });
 
 editOpenButton.addEventListener('click', openEditForm);
-editPopup.addEventListener('click', () => hidePopup(editPopup));
-editPopupContainer.addEventListener('click', e => e.stopPropagation());
 editForm.addEventListener('submit', renameProfile);
 
 addOpenButton.addEventListener('click', () => showPopup(addPopup));
-addPopup.addEventListener('click', () => hidePopup(addPopup));
-addPopupContainer.addEventListener('click', e => e.stopPropagation());
 addForm.addEventListener('submit', handleAddFormSubmit);
 
-picPopup.addEventListener('click', () => hidePopup(picPopup));
-picPopupContainer.addEventListener('click', e => e.stopPropagation());
+popups.forEach(popup => popup.addEventListener('mousedown', evt => {
+    if (evt.target.classList.contains('popup_visible')) {
+        hidePopup(popup);
+    }
+    if (evt.target.classList.contains('popup__close')) {
+        hidePopup(popup);
+    }
+}));

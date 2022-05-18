@@ -41,16 +41,16 @@ const setEventListeners = (formElement, inputSelector, submitButtonSelector, ina
     });
   };
   
-  const enableValidation = (validationData) => {
-    const formList = Array.from(document.querySelectorAll(validationData.formSelector));
+  const enableValidation = (settings) => {
+    const formList = Array.from(document.querySelectorAll(settings.formSelector));
     formList.forEach(formElement => {
         formElement.addEventListener('submit', function (evt) {
             evt.preventDefault();
-            const inputList = Array.from(formElement.querySelectorAll(validationData.inputSelector));
-            const buttonElement = formElement.querySelector(validationData.submitButtonSelector);
-            toggleButtonState(inputList, buttonElement, validationData.inactiveButtonClass);
+            const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+            const buttonElement = formElement.querySelector(settings.submitButtonSelector);
+            toggleButtonState(inputList, buttonElement, settings.inactiveButtonClass);
         });
-        setEventListeners(formElement, validationData.inputSelector, validationData.submitButtonSelector, validationData.inactiveButtonClass, validationData.inputErrorClass, validationData.errorClass)
+        setEventListeners(formElement, settings.inputSelector, settings.submitButtonSelector, settings.inactiveButtonClass, settings.inputErrorClass, settings.errorClass)
     });
   };
   
