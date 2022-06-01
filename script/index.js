@@ -43,7 +43,9 @@ const currentProfileOccupation = document.querySelector('.profile__info-titles')
 
 const cardsBlock = document.querySelector('.cards');
 
-const cardTemplate = document.querySelector(cardTemplateSelector).content.querySelector('.card');
+const formValidators = {};
+
+//const cardTemplate = document.querySelector(cardTemplateSelector).content.querySelector('.card');
 
 const handleKeyDown = evt => {
     if(evt.key === "Escape") {
@@ -63,27 +65,36 @@ const hidePopup = popupElement => {
 }
 
 const openEditForm = () => {
+    formValidators['editProfile'].resetValidation();
     inputProfileName.value = currentProfileName.textContent;
     inputProfileOccupation.value = currentProfileOccupation.textContent;
     showPopup(editPopup);
 }
 
-const renameProfile = evt => {
+const handleEditFormSubmit = evt => {
     evt.preventDefault();
     currentProfileName.textContent = inputProfileName.value;
     currentProfileOccupation.textContent = inputProfileOccupation.value;
     hidePopup(editPopup);
 }
 
+const openAddCardForm = () => {
+    formValidators['addCard'].resetValidation();
+    showPopup(addPopup);
+}
+
 const handleAddFormSubmit = evt => {
     evt.preventDefault();
-    const newCard = new Card({name: inputPlaceName.value, link: inputPlaceLink.value}, cardTemplateSelector, openImage);
-    renderCard(newCard.generateCard());
+    
+    const newCard = createCard({name: inputPlaceName.value, link: inputPlaceLink.value});
+    renderCard(newCard);
     evt.target.reset();
     hidePopup(addPopup);
-    const buttonElement = addPopup.querySelector('.popup__form-save');
-    buttonElement.classList.add('popup__form-save_disabled');
-    buttonElement.setAttribute('disabled', true);
+}
+
+const createCard = item => {
+    const newCard = new Card(item, cardTemplateSelector, openImage);
+    return newCard.generateCard();
 }
 
 const renderCard = cardElem => cardsBlock.prepend(cardElem);
@@ -95,15 +106,24 @@ const openImage = cardData => {
     showPopup(picPopup);
 }
 
-cardsBox.forEach(cardData => renderCard(new Card(cardData, cardTemplateSelector, openImage).generateCard()));
+const enableValidation = (validationSettings) => {
+  const formList = Array.from(document.querySelectorAll(validationSettings.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(validationSettings, formElement)
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
 
-const formList = Array.from(document.querySelectorAll(validationSettings.formSelector));
-formList.forEach(formElem => new FormValidator(validationSettings, formElem).enableValidation());
+enableValidation(validationSettings);
+
+cardsBox.forEach(cardData => renderCard(createCard(cardData)));
 
 editOpenButton.addEventListener('click', openEditForm);
-editForm.addEventListener('submit', renameProfile);
+editForm.addEventListener('submit', handleEditFormSubmit);
 
-addOpenButton.addEventListener('click', () => showPopup(addPopup));
+addOpenButton.addEventListener('click', openAddCardForm);
 addForm.addEventListener('submit', handleAddFormSubmit);
 
 popups.forEach(popup => popup.addEventListener('mousedown', evt => {

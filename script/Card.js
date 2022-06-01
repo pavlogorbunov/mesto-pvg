@@ -4,6 +4,12 @@ class Card {
         this._name = cardData.name;
         this._openImage = openImage;
         this._templateSelector = templateSelector;
+
+        this._cardElement = document.querySelector(this._templateSelector).content.querySelector('.card').cloneNode(true);
+        this._cardTitle = this._cardElement.querySelector('.card__title');
+        this._cardImage = this._cardElement.querySelector('.card__img');
+        this._cardLikeBtn = this._cardElement.querySelector('.card__likebtn');
+        this._cardDeleteBtn = this._cardElement.querySelector('.card__trash');
     }
 
     _like (evt) {
@@ -14,24 +20,19 @@ class Card {
         evt.target.closest('.card').remove();
     }
 
-    generateCard () {
-        const newCard = document.querySelector(this._templateSelector).content.querySelector('.card').cloneNode(true);
-        
-        const newCardTitle = newCard.querySelector('.card__title');
-        newCardTitle.textContent = this._name;
-    
-        const newCardImage = newCard.querySelector('.card__img');
-        newCardImage.src = this._link;
-        newCardImage.alt = this._name;
-        newCardImage.addEventListener('click', () => this._openImage({name: this._name, link: this._link}));
-    
-        const newCardLikeBtn = newCard.querySelector('.card__likebtn');
-        newCardLikeBtn.addEventListener('click', this._like);
-    
-        const newCardDeleteBtn = newCard.querySelector('.card__trash');
-        newCardDeleteBtn.addEventListener('click', this._deleteCard);
+    _setEventListeners() {
+        this._cardImage.addEventListener('click', () => this._openImage({name: this._name, link: this._link}));
+        this._cardLikeBtn.addEventListener('click', this._like);
+        this._cardDeleteBtn.addEventListener('click', this._deleteCard);
+    }
 
-        return newCard;
+    generateCard () {
+        this._cardTitle.textContent = this._name;
+        this._cardImage.src = this._link;
+        this._cardImage.alt = this._name;
+        this._setEventListeners();
+        
+        return this._cardElement;
     }
 }
 
