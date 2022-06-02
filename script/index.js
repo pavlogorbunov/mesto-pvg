@@ -65,9 +65,9 @@ const hidePopup = popupElement => {
 }
 
 const openEditForm = () => {
-    formValidators['editProfile'].resetValidation();
     inputProfileName.value = currentProfileName.textContent;
     inputProfileOccupation.value = currentProfileOccupation.textContent;
+    formValidators['editProfile'].resetValidation();
     showPopup(editPopup);
 }
 
