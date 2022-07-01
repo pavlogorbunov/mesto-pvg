@@ -1,0 +1,5 @@
+.popup__form {
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+    position: relative;
+}
