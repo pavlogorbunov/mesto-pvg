@@ -3,29 +3,12 @@ import './index.css';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { Section } from '../components/Section.js';
-//import { Popup } from './Popup.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
- 
-const cardsBox = [
-    {place: 'Архыз', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'},
-    {place: 'Челябинская область', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'},
-    {place: 'Иваново', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'},
-    {place: 'Камчатка', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'},
-    {place: 'Холмогорский район', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'},
-    {place: 'Байкал', link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'}];
+import { cardsBox, validationSettings, cardTemplateSelector} from '../utils/constants.js';
 
-const validationSettings = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__form-input',
-    submitButtonSelector: '.popup__form-save',
-    inactiveButtonClass: 'popup__form-save_disabled',
-    inputErrorClass: 'popup__form-input_type_error',
-    errorClass: 'popup__form-error_visible'
-};
-
-const cardTemplateSelector = '#card-template';
+console.log(cardsBox);
 
 const editOpenButton = document.querySelector('.profile__info-editbutton');
 const addOpenButton = document.querySelector('.profile__info-addbutton');
@@ -47,7 +30,7 @@ const handleAddFormSubmit = data => {
 }
 
 const createCard = item => {
-    const newCard = new Card(item, cardTemplateSelector, PicPopup.open.bind(PicPopup));
+    const newCard = new Card(item, cardTemplateSelector, picPopup.open.bind(picPopup));
     return newCard.generateCard();
 }
 
@@ -63,30 +46,28 @@ const enableValidation = (validationSettings) => {
 
 enableValidation(validationSettings);
 
-const AddPopup = new PopupWithForm('.popup_type_card', handleAddFormSubmit);
-AddPopup.setEventListeners();
-const EditPopup = new PopupWithForm('.popup_type_profile', handleEditFormSubmit);
-EditPopup.setEventListeners();
-const PicPopup = new PopupWithImage('.popup_type_image');
-PicPopup.setEventListeners();
+const addPopup = new PopupWithForm('.popup_type_card', handleAddFormSubmit);
+addPopup.setEventListeners();
+const editPopup = new PopupWithForm('.popup_type_profile', handleEditFormSubmit);
+editPopup.setEventListeners();
+const picPopup = new PopupWithImage('.popup_type_image');
+picPopup.setEventListeners();
 const User = new UserInfo(currentProfileName.textContent, currentProfileOccupation.textContent);
-console.log(User.getUserInfo());
 
-const CardList = new Section({ data: cardsBox, renderer: (item) => {
-    const card = new Card(item, cardTemplateSelector, PicPopup.open.bind(PicPopup));
-    const cardElement = card.generateCard();
-    CardList.setItem(cardElement);
+const cardList = new Section({ data: cardsBox, renderer: (item) => {
+    const cardElement = createCard(item);
+    cardList.setItem(cardElement);
 } }, '.cards');
 
-CardList.renderItems();
+cardList.renderItems();
 
 editOpenButton.addEventListener('click', () => {
     User.getUserInfo();
     formValidators['editProfile'].resetValidation();
-    EditPopup.open();
+    editPopup.open();
 });
 
 addOpenButton.addEventListener('click', () => {
     formValidators['addCard'].resetValidation();
-    AddPopup.open();
+    addPopup.open();
 });
