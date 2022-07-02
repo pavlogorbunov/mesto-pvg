@@ -8,8 +8,6 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { cardsBox, validationSettings, cardTemplateSelector} from '../utils/constants.js';
 
-console.log(cardsBox);
-
 const editOpenButton = document.querySelector('.profile__info-editbutton');
 const addOpenButton = document.querySelector('.profile__info-addbutton');
 
@@ -19,14 +17,14 @@ const currentProfileOccupation = document.querySelector('.profile__info-titles')
 const formValidators = {};
 
 const handleEditFormSubmit = data => {
-    User.setUserInfo(data);
-    EditPopup.close();
+    user.setUserInfo(data);
+    editPopup.close();
 }
 
 const handleAddFormSubmit = data => {
     const newCard = createCard(data);
-    CardList.setItem(newCard);
-    AddPopup.close();
+    cardList.setItem(newCard);
+    addPopup.close();
 }
 
 const createCard = item => {
@@ -52,7 +50,7 @@ const editPopup = new PopupWithForm('.popup_type_profile', handleEditFormSubmit)
 editPopup.setEventListeners();
 const picPopup = new PopupWithImage('.popup_type_image');
 picPopup.setEventListeners();
-const User = new UserInfo(currentProfileName.textContent, currentProfileOccupation.textContent);
+const user = new UserInfo(currentProfileName.textContent, currentProfileOccupation.textContent);
 
 const cardList = new Section({ data: cardsBox, renderer: (item) => {
     const cardElement = createCard(item);
@@ -62,7 +60,7 @@ const cardList = new Section({ data: cardsBox, renderer: (item) => {
 cardList.renderItems();
 
 editOpenButton.addEventListener('click', () => {
-    User.getUserInfo();
+    user.getUserInfo();
     formValidators['editProfile'].resetValidation();
     editPopup.open();
 });
