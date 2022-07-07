@@ -1,15 +1,25 @@
 import {PopupWithForm} from './PopupWithForm.js';
 
 class PopupWithConfirmation extends PopupWithForm {
-    constructor(popupSelector, handleSubmit) {
+    constructor(popupSelector, handleSubmit, deleteCard) {
         super(popupSelector, handleSubmit);
+        this._deleteCard = deleteCard;
+        this._element.addEventListener('submit', () => {
+            this._deleteCard(this._id, this._cardElement);
+            this.close();
+        });
     }
 
-    open (id, deleteCard) {
+    open (id, cardElement) {
+        this._cardElement = cardElement;
         this._id = id;
-        this._element.addEventListener('submit', () => deleteCard(id));
-        this._element.classList.add('popup_visible');
-        document.addEventListener('keydown', this._handleEscClose);
+        super.open();
+    }
+
+    close() {
+        this._cardElement = undefined;
+        this._id = undefined;
+        super.close();
     }
 }
 

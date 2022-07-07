@@ -4,32 +4,32 @@ class Api {
         this._baseUrl = options.baseUrl;
     }
 
-    getInitialCards() {
-        return fetch(this._baseUrl+'/cards', {
-            headers: {
-            authorization: this._key
-            }
-        });
+    _checkResponse(res) {
+        if (res.ok) {    
+            return res.json();
+        } else {
+            return Promise.reject(`Ошибка ${res.status}`);
+        }
     }
 
-    getUser() {
-        return fetch(this._baseUrl+'/users/me', {
+    getInitialCards() {
+        return fetch(this._baseUrl + '/cards', {
             headers: {
             authorization: this._key
             }
-        });
+        }).then(this._checkResponse);
     }
 
     getUserInfo() {
-        return fetch(this._baseUrl+'/users/me', {
+        return fetch(this._baseUrl + '/users/me', {
             headers: {
             authorization: this._key
             }
-        });
+        }).then(this._checkResponse);
     }
 
     patchUserInfo(data) {
-        return fetch(this._baseUrl+'/users/me', {
+        return fetch(this._baseUrl + '/users/me', {
             method: 'PATCH',
             headers: {
             authorization: this._key,
@@ -39,11 +39,11 @@ class Api {
                 name: data.name,
                 about: data.about
             })
-        });
+        }).then(this._checkResponse);
     }
 
     postNewCard(data) {
-        return fetch(this._baseUrl+'/cards', {
+        return fetch(this._baseUrl + '/cards', {
             method: 'POST',
             headers: {
             authorization: this._key,
@@ -53,7 +53,7 @@ class Api {
                 name: data.name,
                 link: data.link
             })
-        });
+        }).then(this._checkResponse);
     }
 
     patchAvatar(link) {
@@ -64,7 +64,7 @@ class Api {
             'Content-Type': 'application/json'
             },
             body: JSON.stringify({avatar: link})
-        });
+        }).then(this._checkResponse);
     }
 
     deleteCard(id) {
@@ -74,7 +74,7 @@ class Api {
             authorization: this._key,
             'Content-Type': 'application/json'
             }
-        });
+        }).then(this._checkResponse);
     }
 
     putLike(id) {
@@ -83,7 +83,8 @@ class Api {
             headers: {
             authorization: this._key
             }
-        });
+        })
+        .then(this._checkResponse);
     }
 
     deleteLike(id) {
@@ -92,7 +93,8 @@ class Api {
             headers: {
             authorization: this._key
             }
-        });
+        })
+        .then(this._checkResponse);
     }
 }
 

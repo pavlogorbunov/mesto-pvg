@@ -24,20 +24,21 @@ class Card {
 
     _like (evt) {
         if(this._isliked) {
-            this._deleteLike(this._id);
-            --this._counter;
+            this._deleteLike(this._id)
+            .then(res => {
+                this._cardLikesCounter.textContent = res.likes.length;
+                this._isliked = !this._isliked;
+                evt.target.classList.toggle('cards__card-likebtn_activated');
+            });
         } else {
-            this._putLike(this._id);
-            ++this._counter;
+            this._putLike(this._id)
+            .then(res => {
+                this._cardLikesCounter.textContent = res.likes.length;
+                this._isliked = !this._isliked;
+                evt.target.classList.toggle('cards__card-likebtn_activated');
+            });
         }
-        this._cardLikesCounter.textContent = this._counter;
-        this._isliked = !this._isliked;
-        evt.currentTarget.classList.toggle('cards__card-likebtn_activated');
     }
-
-    // _deleteCardfromDom (evt) {
-    //     evt.target.closest('.card').remove();
-    // }
 
     _setEventListeners() {
         this._cardImage.addEventListener('click', () => this._openImage({name: this._name, link: this._link}));

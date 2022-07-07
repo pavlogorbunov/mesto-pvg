@@ -9,23 +9,8 @@ class UserInfo {
         this._occupationInputElement = document.querySelector('.popup__form-input_name_occupation');
     }
 
-    _setInputValues() {
-        this._nameInputElement.value = this._name = this._nameElement.textContent;
-        this._occupationInputElement.value = this._occupation = this._occupationElement.textContent;
-    }
-
     getUserInfo() {
-        this._setInputValues();
         return {name: this._name, occupation: this._occupation};
-    }
-
-    setUserInfo(data) {
-        this._nameElement.textContent = this._name = data.name;
-        this._occupationElement.textContent = this._occupation = data.about;
-    }
-
-    setUserAvatar(data) {
-        this._avatarElement.style.backgroundImage = `url('${data.avatar}')`;
     }
 }
 

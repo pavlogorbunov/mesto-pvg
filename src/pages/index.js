@@ -16,65 +16,59 @@ const avatarEditButton = document.querySelector('.profile__avatar-container');
 
 const currentProfileName = document.querySelector('.profile__info-name');
 const currentProfileOccupation = document.querySelector('.profile__info-titles');
+const avatarElement = document.querySelector('.profile__avatar');
+
+const nameInputElement = document.querySelector('.popup__form-input_name_name');
+const occupationInputElement = document.querySelector('.popup__form-input_name_occupation');
 
 const formValidators = {};
 
 const handleEditFormSubmit = data => {
     editPopup.renderLoading(true);
-    api.patchUserInfo(data).then(res => {
-        if(res.ok) {
-            return res.json();
-        } else {
-            return Promise.reject(res);
-        }
-    })
+    api.patchUserInfo(data)
     .then(res => {
-        user.setUserInfo(res);
-        editPopup.renderLoading(false);
+        renderUserInfo(res);
         editPopup.close();
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => editPopup.renderLoading(false));
 }
 
 const handleAddFormSubmit = data => {
     addPopup.renderLoading(true);
-    api.postNewCard(data).then(res => {
-        if(res.ok) {
-            return res.json();
-        } else {
-            return Promise.reject(res);
-        }
-    }).then((res) => {
+    api.postNewCard(data)
+    .then((res) => {
         const newCard = createUserCard(res);
         cardList.setItem(newCard);
-        addPopup.renderLoading(false);
         addPopup.close();
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+    .finally(() => addPopup.renderLoading(false));
 }
 
 const handleAreYouSureSubmit = () => {
-    areYouSurePopup.close();
+    //areYouSurePopup.close();
 }
 
 const handleAvatarSubmit = (data) => {
     avatarPopup.renderLoading(true);
-    api.patchAvatar(data.link).then(res => { if(res.ok) {
-        return res.json();
-    } else {
-        return Promise.reject(res);
-    }}).catch(err => console.log(err));
-    api.getUser().then(res => {
-        if(res.ok) {
-            return res.json();
-        } else {
-            return Promise.reject(res);
-        }
-    }).then(res => {
-        user.setUserAvatar(res);
+    api.patchAvatar(data.link).catch(err => console.log(err));
+    api.getUserInfo()
+    .then(res => {
+        renderAvatar(res);
         avatarPopup.close();
-        avatarPopup.renderLoading(false);
-    }).catch(err => console.log(err));
+    })
+    .catch(err => console.log(err))
+    .finally(() => avatarPopup.renderLoading(false));
+}
+
+const renderUserInfo = (data) => {
+    currentProfileName.textContent = data.name;
+    currentProfileOccupation.textContent = data.about;
+}
+
+const renderAvatar = (data) => {
+    avatarElement.style.backgroundImage = `url('${data.avatar}')`;
 }
 
 const createUserCard = item => {
@@ -92,18 +86,11 @@ const createDefaultCard = item => {
 }
 
 const confirmDeleteCard = (id, cardElement) => {
-    areYouSurePopup.open(id, () => deleteCard(id, cardElement));
+    areYouSurePopup.open(id, cardElement);
 }
 
 const deleteCard = (id, cardElement) => {
     api.deleteCard(id)
-    .then(res => {
-        if(res.ok) {
-            return res.json();
-        } else {
-            return Promise.reject(res);
-        }
-    })
     .then(cardElement.remove())
     .catch(err => console.log(err));
 }
@@ -124,7 +111,7 @@ const addPopup = new PopupWithForm('.popup_type_card', handleAddFormSubmit);
 addPopup.setEventListeners();
 const editPopup = new PopupWithForm('.popup_type_profile', handleEditFormSubmit);
 editPopup.setEventListeners();
-const areYouSurePopup = new PopupWithConfirmation('.popup_type_are-you-sure', handleAreYouSureSubmit, );
+const areYouSurePopup = new PopupWithConfirmation('.popup_type_are-you-sure', handleAreYouSureSubmit, deleteCard);
 areYouSurePopup.setEventListeners();
 const avatarPopup = new PopupWithForm('.popup_type_avatar', handleAvatarSubmit);
 avatarPopup.setEventListeners();
@@ -139,41 +126,28 @@ const cardList = new Section({ data: cardsBox, renderer: (item) => {
 
 const api = new Api(accesOptions);
 
-api.getUserInfo()
-    .then(res => {
-        if(res.ok) {
-            return res.json();
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    renderUserInfo(userData);
+    renderAvatar(userData);
+    user._name = userData.name;
+    user._occupation = userData.about;
+    user._id = userData._id;
+    cards.forEach(card => {
+        if(card.owner._id === user._id) {
+            const cardElement = createUserCard(card);
+            cardList.setItemAppend(cardElement);
         } else {
-            return Promise.reject(res);
+            const cardElement = createDefaultCard(card);
+            cardList.setItemAppend(cardElement);
         }
     })
-    .then(res => {
-        user.setUserInfo(res);
-        user.setUserAvatar(res);
-        user._id = res._id;
-    })
-    .then(
-        api.getInitialCards().then(res => {
-            if(res.ok) {
-                return res.json();
-            } else {
-                return Promise.reject(res);
-            }
-        }).then(res => {
-            res.forEach(card => {
-                if(card.owner._id === user._id) {
-                    const cardElement = createUserCard(card);
-                    cardList.setItemAppend(cardElement);
-                } else {
-                    const cardElement = createDefaultCard(card);
-                    cardList.setItemAppend(cardElement);
-                }
-            })
-        }).catch(err => console.log(err))
-    ).catch(err => console.log(err));
+  })
+  .catch(err => console.log(err));
 
 editOpenButton.addEventListener('click', () => {
-    user.getUserInfo();
+    nameInputElement.value = user.getUserInfo().name;
+    occupationInputElement.value = user.getUserInfo().occupation;
     formValidators['editProfile'].resetValidation();
     editPopup.open();
 });
