@@ -4,6 +4,7 @@ class UserInfo {
         this._occupation = occupation;
         this._nameElement = document.querySelector('.profile__info-name');
         this._occupationElement = document.querySelector('.profile__info-titles');
+        this._avatarElement = document.querySelector('.profile__avatar');
         this._nameInputElement = document.querySelector('.popup__form-input_name_name');
         this._occupationInputElement = document.querySelector('.popup__form-input_name_occupation');
     }
@@ -20,7 +21,11 @@ class UserInfo {
 
     setUserInfo(data) {
         this._nameElement.textContent = this._name = data.name;
-        this._occupationElement.textContent = this._occupation = data.occupation;
+        this._occupationElement.textContent = this._occupation = data.about;
+    }
+
+    setUserAvatar(data) {
+        this._avatarElement.style.backgroundImage = `url('${data.avatar}')`;
     }
 }
 

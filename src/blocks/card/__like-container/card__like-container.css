@@ -1,0 +1,5 @@
+.card__like-container {
+    grid-area: like;
+    display: flex;
+    flex-direction: column;
+}

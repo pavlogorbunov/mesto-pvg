@@ -6,6 +6,9 @@
     background-repeat: no-repeat;
     background-size: cover;
     flex-shrink: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 @media screen and (max-width: 800px) {

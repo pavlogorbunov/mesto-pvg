@@ -2,6 +2,7 @@
     width: 22px;
     height: 19px;
     margin: auto;
+    margin-bottom: 0;
     background-image: url("../../../images/like.svg");
     background-position: center;
     background-repeat: no-repeat;
@@ -10,7 +11,7 @@
     cursor: pointer;
     transition: 0.3s;
     border: 0;
-    grid-area: like;
+    padding: 0;
 }
 
 .card__likebtn:hover {

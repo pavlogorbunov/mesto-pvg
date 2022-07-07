@@ -9,6 +9,7 @@ class Popup {
     }
 
     close () {
+        this._id = undefined;
         this._element.classList.remove('popup_visible');
         document.removeEventListener('keydown', this._handleEscClose);
     }

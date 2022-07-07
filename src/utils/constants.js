@@ -17,4 +17,9 @@ const validationSettings = {
 
 const cardTemplateSelector = '#card-template';
 
-export {cardsBox, validationSettings, cardTemplateSelector};
+const accesOptions = {
+    key: '6c9f8505-88ae-4344-b1ca-298ef4ad5012',
+    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44'
+}
+
+export {cardsBox, validationSettings, cardTemplateSelector, accesOptions};
