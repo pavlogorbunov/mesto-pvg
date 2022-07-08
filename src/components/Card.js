@@ -29,14 +29,16 @@ class Card {
                 this._cardLikesCounter.textContent = res.likes.length;
                 this._isliked = !this._isliked;
                 evt.target.classList.toggle('cards__card-likebtn_activated');
-            });
+            })
+            .catch(err => console.log(err));
         } else {
             this._putLike(this._id)
             .then(res => {
                 this._cardLikesCounter.textContent = res.likes.length;
                 this._isliked = !this._isliked;
                 evt.target.classList.toggle('cards__card-likebtn_activated');
-            });
+            })
+            .catch(err => console.log(err));
         }
     }
 

@@ -16,7 +16,6 @@ const avatarEditButton = document.querySelector('.profile__avatar-container');
 
 const currentProfileName = document.querySelector('.profile__info-name');
 const currentProfileOccupation = document.querySelector('.profile__info-titles');
-const avatarElement = document.querySelector('.profile__avatar');
 
 const nameInputElement = document.querySelector('.popup__form-input_name_name');
 const occupationInputElement = document.querySelector('.popup__form-input_name_occupation');
@@ -27,7 +26,7 @@ const handleEditFormSubmit = data => {
     editPopup.renderLoading(true);
     api.patchUserInfo(data)
     .then(res => {
-        renderUserInfo(res);
+        user.setUserInfo(res);
         editPopup.close();
     })
     .catch(err => console.log(err))
@@ -55,20 +54,11 @@ const handleAvatarSubmit = (data) => {
     api.patchAvatar(data.link).catch(err => console.log(err));
     api.getUserInfo()
     .then(res => {
-        renderAvatar(res);
+        user.setUserInfo(res);
         avatarPopup.close();
     })
     .catch(err => console.log(err))
     .finally(() => avatarPopup.renderLoading(false));
-}
-
-const renderUserInfo = (data) => {
-    currentProfileName.textContent = data.name;
-    currentProfileOccupation.textContent = data.about;
-}
-
-const renderAvatar = (data) => {
-    avatarElement.style.backgroundImage = `url('${data.avatar}')`;
 }
 
 const createUserCard = item => {
@@ -128,11 +118,7 @@ const api = new Api(accesOptions);
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
-    renderUserInfo(userData);
-    renderAvatar(userData);
-    user._name = userData.name;
-    user._occupation = userData.about;
-    user._id = userData._id;
+    user.setUserInfo(userData);
     cards.forEach(card => {
         if(card.owner._id === user._id) {
             const cardElement = createUserCard(card);

@@ -4,10 +4,6 @@ class PopupWithConfirmation extends PopupWithForm {
     constructor(popupSelector, handleSubmit, deleteCard) {
         super(popupSelector, handleSubmit);
         this._deleteCard = deleteCard;
-        this._element.addEventListener('submit', () => {
-            this._deleteCard(this._id, this._cardElement);
-            this.close();
-        });
     }
 
     open (id, cardElement) {
@@ -20,6 +16,14 @@ class PopupWithConfirmation extends PopupWithForm {
         this._cardElement = undefined;
         this._id = undefined;
         super.close();
+    }
+
+    setEventListeners() {
+        super.setEventListeners();
+        this._element.addEventListener('submit', () => {
+            this._deleteCard(this._id, this._cardElement);
+            this.close();
+        });
     }
 }
 
